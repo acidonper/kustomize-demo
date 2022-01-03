@@ -1,0 +1,18 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namePrefix: secureapp-
+namespace: secureapp
+resources:
+- deployment.yaml
+configMapGenerator:
+- name: conf-plain
+  files:
+  - application.properties
+secretGenerator:
+- name: conf-secret
+  files:
+  - application-secret.properties
+- name: env-secret
+  envs:
+  - application.properties
+  type: Opaque

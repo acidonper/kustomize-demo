@@ -1,0 +1,11 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- deployment.yaml
+namePrefix: labelapp-
+namespace: labelapp
+commonLabels:
+  app: labelapp
+  version: v1
+commonAnnotations:
+  jump-app.acidonpe.com: active

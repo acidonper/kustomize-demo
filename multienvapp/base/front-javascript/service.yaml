@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: front-javascript
+spec:
+  ports:
+    - name: http-8080
+      port: 8080
+      protocol: 
+      targetPort: 3000   
+  selector:
+    app: front-javascript

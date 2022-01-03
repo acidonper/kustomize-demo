@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: front-javascript
+    version: v1
+  name: front-javascript-v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: front-javascript
+  template:
+    metadata:
+      labels:
+        name: front-javascript-v1
+        app: front-javascript
+        version: v1
+    spec:
+      containers:
+      - image: quay.io/acidonpe/jump-app-front-javascript:latest
+        imagePullPolicy: Always
+        name: front-javascript-v1
+        ports:
+          - containerPort: 3000
+            protocol: TCP
+        resources: {}
+        env:
+          - name: BACK
+            valueFrom:
+              secretKeyRef:
+                name: secureapp-env-secret
+                key: REACT_APP_BACK
+        volumeMounts:
+        - name: conf
+          mountPath: /etc/conf
+        - name: secret
+          mountPath: /etc/secret
+      volumes:
+        - name: conf
+          configMap:
+            name: secureapp-conf-plain
+        - name: secret
+          secret:
+            secretName: secureapp-conf-secret

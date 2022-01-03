@@ -104,6 +104,7 @@ oc apply -k ./
 PODID=$(oc get pod -l app=front-javascript -o jsonpath='{.items[0].metadata.name}' -n secureapp)
 oc -n secureapp exec ${PODID} cat /etc/conf/application.properties
 oc -n secureapp exec ${PODID} cat /etc/secret/application-secret.properties
+oc -n secureapp exec ${PODID} env | grep BACK
 ```
 
 In order to clean up the resources created, it is required to execute the following command:
